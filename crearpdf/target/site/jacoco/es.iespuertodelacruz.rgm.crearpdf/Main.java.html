@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">crearpdf</a> &gt; <a href="index.source.html" class="el_package">es.iespuertodelacruz.rgm.crearpdf</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package es.iespuertodelacruz.rgm.crearpdf;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+
+<span class="nc" id="L10">public class Main {</span>
+
+
+    public static void main(String[] args) throws Exception {
+<span class="nc" id="L14">        try (PDDocument document = new PDDocument()) {</span>
+
+<span class="nc" id="L16">            Estructura estructura = new Estructura(50);</span>
+
+<span class="nc" id="L18">            PDPage page = new PDPage(PDRectangle.A6);</span>
+<span class="nc" id="L19">            document.addPage(page);</span>
+
+<span class="nc" id="L21">            PDPageContentStream contentStream = new PDPageContentStream(document, page);</span>
+
+<span class="nc bnc" id="L23" title="All 2 branches missed.">            for (int i = 0; i &lt; 5; i++) {</span>
+             
+                // Text
+<span class="nc" id="L26">                contentStream.beginText();</span>
+<span class="nc" id="L27">                contentStream.setFont(PDType1Font.TIMES_BOLD, 32);</span>
+<span class="nc" id="L28">                contentStream.newLineAtOffset( 20, estructura.getHeightActual());</span>
+<span class="nc" id="L29">                contentStream.showText(&quot;Hello World!&quot;);</span>
+<span class="nc" id="L30">                contentStream.endText();</span>
+<span class="nc" id="L31">                estructura.avanzarEnHeight();</span>
+            }
+
+            // Image
+<span class="nc" id="L35">            PDImageXObject image = PDImageXObject.createFromByteArray(document, Main.class.getResourceAsStream(&quot;/java.png&quot;).readAllBytes(), &quot;Java Logo&quot;);</span>
+<span class="nc" id="L36">            contentStream.drawImage(image, 20, 20, image.getWidth() / 3, image.getHeight() / 3);</span>
+
+<span class="nc" id="L38">            contentStream.close();</span>
+
+<span class="nc" id="L40">            document.save(&quot;document.pdf&quot;);</span>
+        }
+<span class="nc" id="L42">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
